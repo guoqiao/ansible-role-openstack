@@ -1,24 +1,44 @@
 # ansible-role-openstack
 
-## Variables and defaults
+Create infrastructure and servers in openstack cloud.
 
-refer to `group_vars/all.yml` and `vars`.
+## Installation
+
+Add to `requirements.yml`:
+
+    - src: git+https://github.com/catalyst-samba/ansible-role-openstack.git
+      name: openstack
+
+Install:
+
+    ansible-galaxy install -f -r requirements.yml
+
+This will install role into `~/.ansible/roles`.
+You can also link the repo to there to use source code:
+
+    cd ~/.ansible/roles
+    ln -s ~/git/ansible-role-openstack openstack
 
 ## Examples
 
 NOTE: `infra` means everything we need before create servers,
 such as network, subnet, router, keypair, security group and rules.
 
-Create infra and 1 server by default:
+A play to create infra and 1 server by default:
 
-    - name: create infra and 1 server
-      include_role:
-        name: openstack
+    - name: run role
+      hosts: localhost
+      tasks:
+        - name: create infra and 1 server
+          include_role:
+            name: openstack
 
-NOTE: this will use `$USER` as default `ENV_NAME`, create infra based on it.
-A ubuntu server named `$USER-0` will be created.
+This role should run on localhost, to call openstack API, openstack rc file must be sourced first.
+Following examples will only show the task.
+Be default, it will use `$USER` as default `ENV_NAME`, create infra based on it.
+1 ubuntu server will be created.
 
-Create infra and N servers in parallel:
+Task to create infra and N servers in parallel:
 
     - name: create infra and 3 servers
       include_role:
@@ -28,7 +48,7 @@ Create infra and N servers in parallel:
 
 NOTE: servers `$USER-[0, 1, 2]` will be created.
 
-Create servers with different attributes:
+Task to create servers with different attributes:
 
     - name: create infra and servers
       include_role:
@@ -84,3 +104,8 @@ Create 1 Ubuntu + 1 Windows instances:
       include_role:
         name: openstack
         vars_from: windows
+
+## Variables and defaults
+
+refer to [defaults/all.yml](defaults/all.yml) and [vars](vars).
+
