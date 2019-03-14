@@ -1,0 +1,13 @@
+---
+OS_IMAGE_NAME: windows-server-2012r2-x86_64
+OS_FLAVOR_NAME: c1.c4r4
+OS_VOLUME_SIZE: 100
+# override if you don't want ENV_NAME
+OS_SERVER_PREFIX: '{{ENV_NAME}}-win-'
+OS_USERDATA_FILE: "templates/userdata.ps1"
+OS_META_GROUPS: ['windows-common']
+
+# used by userdata.ps1
+windows_username: Administrator
+windows_password: Password01@
+

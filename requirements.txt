@@ -1,0 +1,19 @@
+# Ansible requires Python 2.6+ and 3.5+
+pip
+setuptools
+ipython
+click
+
+ansible
+docker
+redis
+
+# cloud api
+openstacksdk
+
+# for ansible to access windows
+pywinrm
+pexpect
+
+lxml
+python-dateutil

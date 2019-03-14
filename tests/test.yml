@@ -1,0 +1,7 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: localhost
+  tasks:
+    - name: run openstack role by default
+      include_role:
+        name: openstack

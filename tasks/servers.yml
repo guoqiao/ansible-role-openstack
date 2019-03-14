@@ -1,0 +1,7 @@
+---
+- name: include tasks in servers_expand.yml
+  include_tasks: servers_expand.yml
+
+- name: include tasks in servers_create.yml
+  include_tasks: servers_create.yml
+  when: _OS_SERVERS is defined and _OS_SERVERS|length > 0

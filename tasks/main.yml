@@ -1,0 +1,3 @@
+---
+- include_tasks: infra.yml
+- include_tasks: servers.yml

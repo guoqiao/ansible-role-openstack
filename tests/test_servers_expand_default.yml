@@ -1,0 +1,14 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: localhost
+  tasks:
+
+    - name: test default
+      include_role:
+        name: openstack
+        tasks_from: servers_expand.yml
+
+    - name: check _OS_SERVERS length
+      fail:
+        msg: "OS_SERVERS wrong length"
+      when: _OS_SERVERS|length != 1

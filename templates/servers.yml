@@ -1,0 +1,32 @@
+{% for item in OS_SERVERS %}
+
+{% with %}
+
+  {% set prefix = item.prefix|default(OS_SERVER_PREFIX) %}
+  {% set index = item.index|default(loop.index0|string) %}
+  {% set name = item.name|default(prefix + index) %}
+  {% set image = item.image|default(OS_IMAGE_NAME) %}
+  {% set volume_name = item.volume_name|default('volume-' + name) %}
+
+- name: "{{ name }}"
+  image: "{{ image }}"
+  flavor: "{{ item.flavor|default(OS_FLAVOR_NAME) }}"
+  key_name: "{{ item.key_name|default(OS_KEYPAIR_NAME) }}"
+  network: "{{ OS_NETWORK_NAME }}"
+  security_groups: "{{item.security_groups|default(OS_SECURITY_GROUPS)}}"
+  auto_floating_ip: "{{ item.auto_floating_ip|default(OS_AUTO_FLOATING_IP) }}"
+  userdata_file: "{{item.userdata_file|default(OS_USERDATA_FILE)}}"
+  volume_name: "{{ volume_name }}"
+  volume_size: "{{ item.volume_size|default(OS_VOLUME_SIZE) }}"
+  volume_type: "{{ item.volume_type|default(OS_VOLUME_TYPE) }}"
+  boot_volume: "{{ volume_name }}"
+  terminate_volume: "{{ item.terminate_volume|default('yes') }}"
+  meta:
+    group: "{{ ENV_NAME }}"
+    groups: "{{item.groups|default(OS_META_GROUPS)|join(',')}}"
+    creator: "{{lookup('env', 'USER')}}"
+    image: "{{ image }}"
+
+{% endwith %}
+
+{% endfor %}

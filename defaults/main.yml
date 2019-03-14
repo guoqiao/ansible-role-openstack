@@ -1,0 +1,52 @@
+---
+# vars need override while use role
+ENV_NAME: "{{lookup('env', 'USER')}}"
+
+OS_NETWORK_NAME: "{{ ENV_NAME }}-network"
+OS_ROUTER_NAME: "{{ ENV_NAME }}-router"
+OS_SUBNET_NAME: "{{ ENV_NAME }}-subnet"
+OS_SUBNET_CIDR: "10.0.0.0/24"
+OS_AUTO_FLOATING_IP: yes
+
+## Porirua region DNS
+OS_NAMESERVERS: [202.78.247.197, 202.78.247.198, 202.78.247.199]
+
+# by default, we create only 1 server, name defaults to $USER-0
+OS_SERVER_PREFIX: "{{ENV_NAME}}"
+OS_SERVER_NAME: "{{OS_SERVER_PREFIX}}-0"
+OS_SERVERS:
+  - name: "{{OS_SERVER_NAME}}"
+
+# b1.standard, b1.sr-r3-nvme-{5000,2500,1000}
+OS_VOLUME_TYPE: b1.standard
+OS_KEYPAIR_NAME: catalyst_samba
+OS_PUBLIC_KEY_FILE: "{{ role_path }}/files/id_rsa_catalyst_samba.pub"
+
+OS_SECURITY_GROUP: domain
+
+OS_SECURITY_GROUPS: ['domain']
+
+OS_SECURITY_GROUP_RULES:
+  - protocol: tcp  # tcp traffic in domain
+    remote_group: domain
+  - protocol: udp  # udp traffic in domain
+    remote_group: domain
+  - protocol: icmp  # ping
+    remote_ip_prefix: 0.0.0.0/0
+  - protocol: tcp  # ssh
+    port_range_min: 22
+    port_range_max: 22
+    remote_ip_prefix: 0.0.0.0/0
+  - protocol: tcp  # winrm
+    port_range_min: 5985
+    port_range_max: 5986
+    remote_ip_prefix: 202.78.240.7/32
+  - protocol: tcp  # rdp
+    port_range_min: 3389
+    port_range_max: 3389
+    remote_ip_prefix: 202.78.240.7/32
+
+# present or absent
+state: present
+# set to no to skip network creation if already exists
+openstack_network: yes

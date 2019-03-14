@@ -1,0 +1,36 @@
+---
+# A generic role to create a accessable server
+- name: verify authentication
+  os_auth:
+
+- name: import ssh keypair {{ OS_KEYPAIR_NAME }}
+  os_keypair:
+    name: "{{ OS_KEYPAIR_NAME }}"
+    public_key_file: "{{ OS_PUBLIC_KEY_FILE }}"
+
+- name: create network {{ OS_NETWORK_NAME }}
+  os_network:
+    name: "{{ OS_NETWORK_NAME }}"
+
+- name: create subnet {{ OS_SUBNET_NAME }} with cidr {{ OS_SUBNET_CIDR }}
+  os_subnet:
+    name: "{{ OS_SUBNET_NAME }}"
+    network_name: "{{ OS_NETWORK_NAME }}"
+    cidr: "{{ OS_SUBNET_CIDR }}"
+    dns_nameservers: "{{ OS_NAMESERVERS }}"
+
+- name: create public-net router {{ OS_ROUTER_NAME }}
+  os_router:
+    name: "{{ OS_ROUTER_NAME }}"
+    network: public-net
+    interfaces:
+      - "{{ OS_SUBNET_NAME }}"
+  when: OS_AUTO_FLOATING_IP|bool
+
+- name: create security group
+  os_security_group:
+    name: "{{ OS_SECURITY_GROUP }}"
+
+- name: add security group rules
+  os_security_group_rule: "{{item|combine({'security_group': OS_SECURITY_GROUP})}}"
+  loop: "{{ OS_SECURITY_GROUP_RULES }}"

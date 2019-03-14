@@ -1,0 +1,28 @@
+---
+# run this file to destroy env:
+# include_role:
+#   name: openstack
+#   tasks_from: absent
+
+- name: delete servers
+  os_server:
+    name: "{{item}}"
+    delete_fip: yes
+    state: absent
+  loop: "{{groups[ENV_NAME]}}"
+  when: 'ENV_NAME in groups'
+
+- name: delete router
+  os_router:
+    name: "{{ OS_ROUTER_NAME }}"
+    state: absent
+
+- name: delete subnet
+  os_subnet:
+    name: "{{ OS_SUBNET_NAME }}"
+    state: absent
+
+- name: delete network
+  os_network:
+    name: "{{ OS_NETWORK_NAME }}"
+    state: absent

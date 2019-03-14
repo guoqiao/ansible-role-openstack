@@ -1,0 +1,3 @@
+---
+- name: refresh inventory
+  meta: refresh_inventory

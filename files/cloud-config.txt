@@ -1,0 +1,15 @@
+#cloud-config
+
+locale: en_NZ.UTF-8
+
+package_update: true
+
+package_upgrade: true
+
+packages:
+ - htop
+ - tree
+ - rng-tools
+ - zsh
+ - silversearcher-ag
+ - language-pack-en

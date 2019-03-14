@@ -1,0 +1,8 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: localhost
+  tasks:
+    - name: create infra only
+      include_role:
+        name: openstack
+        tasks_from: infra

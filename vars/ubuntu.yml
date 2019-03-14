@@ -1,0 +1,9 @@
+---
+OS_IMAGE_NAME: ubuntu-16.04-x86_64
+OS_FLAVOR_NAME: c1.c1r1
+OS_VOLUME_SIZE: 20
+# override if you don't want ENV_NAME
+OS_SERVER_PREFIX: '{{ENV_NAME}}-srv-'
+OS_USERDATA_FILE: "templates/userdata.sh"
+OS_META_GROUPS: ['samba-common']
+
