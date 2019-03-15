@@ -13,7 +13,7 @@ OS_NAMESERVERS: [202.78.247.197, 202.78.247.198, 202.78.247.199]
 
 # by default, we create only 1 server, name defaults to $USER-0
 OS_SERVER_PREFIX: "{{ENV_NAME}}"
-OS_SERVER_NAME: "{{OS_SERVER_PREFIX}}-0"
+OS_SERVER_NAME: "{{OS_SERVER_PREFIX}}0"
 OS_SERVERS:
   - name: "{{OS_SERVER_NAME}}"
 
