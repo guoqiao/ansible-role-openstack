@@ -1,3 +1,11 @@
 ---
 - name: refresh inventory
   meta: refresh_inventory
+
+
+- name: sleep 30s
+  when: os_floating_ip_task.changed
+  # we should call `wait_for_connection` in next role,
+  # but also wait here for safe
+  wait_for:
+    timeout: 30

@@ -51,14 +51,6 @@
     wait: true
   when: item.auto_floating_ip|bool
   loop: "{{ _OS_SERVERS|default([]) }}"
-  register: os_floating_ip_task
-
-- name: refresh in-memory openstack dynamic inventory
-  meta: refresh_inventory
-
-- name: sleep for connection
-  when: os_floating_ip_task.changed
-  # we should call `wait_for_connection` in next role,
-  # but also wait here for safe
-  wait_for:
-    timeout: 30
+  notify:
+    - sleep 30s
+    - refresh inventory
