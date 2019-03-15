@@ -1,6 +1,6 @@
 ---
 # vars need override while use role
-ENV_NAME: "{{lookup('env', 'USER')}}"
+ENV_NAME: "{{ lookup('env', 'USER') or 'ansible' }}"
 
 OS_NETWORK_NAME: "{{ ENV_NAME }}-network"
 OS_ROUTER_NAME: "{{ ENV_NAME }}-router"
