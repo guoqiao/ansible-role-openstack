@@ -1,0 +1,11 @@
+#!/usr/bin/env ansible-playbook
+---
+
+# ./test.yml -e ENV_NAME=xxx
+
+- hosts: localhost
+  tasks:
+    - name: use role to destry env
+      include_role:
+        name: openstack
+        tasks_from: absent
