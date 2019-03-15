@@ -1,9 +1,4 @@
 ---
-# run this file to destroy env:
-# include_role:
-#   name: openstack
-#   tasks_from: absent
-
 - name: delete servers
   os_server:
     name: "{{ item }}"
