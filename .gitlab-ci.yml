@@ -1,0 +1,27 @@
+image: registry.gitlab.com/catalyst-samba/docker-image-ansible:latest
+
+variables:
+  ROLE_NAME: openstack
+  ROLE_ROOT: /root/.ansible/roles
+  ANSIBLE_STDOUT_CALLBACK: debug
+
+before_script:
+  - env
+  - pwd
+  - mkdir -p $ROLE_ROOT
+  - ln -s $CI_PROJECT_DIR $ROLE_ROOT/$ROLE_NAME
+  - ls -al $ROLE_ROOT
+  - ansible-galaxy list | grep $ROLE_NAME
+  - ansible-lint .
+
+test:
+  tags:
+    - docker
+    - shared
+  script:
+    # this role relies on openstack, we can not do too much test
+    - tests/test.yml -v --syntax-check
+    - tests/test_infra.yml -v --syntax-check
+    - tests/test_absent.yml -v --syntax-check
+    - tests/test_servers_expand_default.yml -v
+    - tests/test_servers_expand_with_var.yml -v
