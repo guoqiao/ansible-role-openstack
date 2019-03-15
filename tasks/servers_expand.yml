@@ -3,5 +3,5 @@
 - name: expand servers attributes with template
   tags: always
   set_fact:
-    _OS_SERVERS: "{{lookup('template', 'servers.yml')|from_yaml}}"
+    _OS_SERVERS: "{{ lookup('template', 'servers.yml')|from_yaml }}"
   when: OS_SERVERS is defined and OS_SERVERS|length > 0

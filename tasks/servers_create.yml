@@ -6,7 +6,7 @@
     volume_type: "{{ item.volume_type }}"
     image: "{{ item.image }}"
   when: 'item.volume_size|int > 10'
-  loop: "{{_OS_SERVERS|default([])}}"
+  loop: "{{ _OS_SERVERS|default([]) }}"
 
 - name: create server instances
   os_server:
@@ -18,30 +18,30 @@
     network: "{{ item.network }}"
     security_groups: "{{ item.security_groups }}"
     auto_floating_ip: no  # do it later
-    userdata: "{{lookup('template', item.userdata_file)}}"
+    userdata: "{{ lookup('template', item.userdata_file) }}"
     wait: yes
     meta: "{{ item.meta }}"
   async: 300
   poll: 0
-  loop: "{{_OS_SERVERS|default([])}}"
+  loop: "{{ _OS_SERVERS|default([]) }}"
   register: os_server_loop
 
 - name: wait for servers
   async_status:
-    jid: "{{item.ansible_job_id}}"
+    jid: "{{ item.ansible_job_id }}"
     mode: status
   retries: 60
   delay: 10
-  loop: "{{os_server_loop.results}}"
+  loop: "{{ os_server_loop.results }}"
   register: os_server_loop_jobs
   until: os_server_loop_jobs.finished
 
 - name: add host to in-memory inventory
   add_host:
-    host: "{{item.openstack.name}}"
-    groups: "{{item.openstack.metadata.groups}}"
-    ansible_host: "{{item.openstack.public_v4}}"
-  loop: "{{os_server_loop_jobs.results}}"
+    host: "{{ item.openstack.name }}"
+    groups: "{{ item.openstack.metadata.groups }}"
+    ansible_host: "{{ item.openstack.public_v4 }}"
+  loop: "{{ os_server_loop_jobs.results }}"
 
 - name: add floating ip to servers in separate task to avoid failure
   os_floating_ip:
@@ -50,7 +50,7 @@
     state: present
     wait: true
   when: item.auto_floating_ip|bool
-  loop: "{{_OS_SERVERS|default([])}}"
+  loop: "{{ _OS_SERVERS|default([]) }}"
   register: os_floating_ip_task
 
 - name: refresh in-memory openstack dynamic inventory

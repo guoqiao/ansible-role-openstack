@@ -6,10 +6,10 @@
 
 - name: delete servers
   os_server:
-    name: "{{item}}"
+    name: "{{ item }}"
     delete_fip: yes
     state: absent
-  loop: "{{groups[ENV_NAME]}}"
+  loop: "{{ groups[ENV_NAME] }}"
   when: 'ENV_NAME in groups'
 
 - name: delete router
