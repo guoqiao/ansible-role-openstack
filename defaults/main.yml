@@ -18,7 +18,7 @@ OS_SERVERS:
   - name: "{{OS_SERVER_NAME}}"
 
 # b1.standard, b1.sr-r3-nvme-{5000,2500,1000}
-OS_VOLUME_TYPE: b1.standard
+OS_VOLUME_TYPE: b1.sr-r3-nvme-5000
 OS_KEYPAIR_NAME: catalyst_samba
 OS_PUBLIC_KEY_FILE: "{{ role_path }}/files/id_rsa_catalyst_samba.pub"
 
