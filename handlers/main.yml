@@ -1,7 +1,7 @@
 ---
 
 - name: refresh inventory
-  command: python3 files/openstack_inventory.py --list --refresh
+  command: python3 {{role_path}}/files/openstack_inventory.py --list --refresh
 
 
 # we should call `wait_for_connection` in next role,
