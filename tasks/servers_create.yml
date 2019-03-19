@@ -36,13 +36,6 @@
   register: os_server_loop_jobs
   until: os_server_loop_jobs.finished
 
-- name: add host to in-memory inventory
-  add_host:
-    host: "{{ item.openstack.name }}"
-    groups: "{{ item.openstack.metadata.groups }}"
-    ansible_host: "{{ item.openstack.public_v4 }}"
-  loop: "{{ os_server_loop_jobs.results }}"
-
 - name: add floating ip to servers in separate task to avoid failure
   os_floating_ip:
     server: "{{ item.name }}"
