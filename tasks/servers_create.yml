@@ -49,3 +49,6 @@
 
 - name: refresh inventory
   command: python3 {{role_path}}/files/openstack_inventory.py --list --refresh
+
+- name: refresh inventory
+  meta: refresh_inventory
