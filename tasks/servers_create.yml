@@ -46,4 +46,6 @@
   loop: "{{ _OS_SERVERS|default([]) }}"
   notify:
     - sleep 30s
-    - refresh inventory
+
+- name: refresh inventory
+  command: python3 {{role_path}}/files/openstack_inventory.py --list --refresh
