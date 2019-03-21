@@ -1,5 +1,16 @@
 ---
 # A generic role to create a accessable server
+
+- name: create ~/.config/openstack/
+  file:
+    path: ~/.config/openstack
+    state: directory
+
+- name: copy clouds.yaml to ~/.config/openstack/clouds.yaml
+  copy:
+    src: files/clouds.yaml
+    dest: ~/.config/openstack/clouds.yaml
+
 - name: verify authentication
   os_auth:
 
