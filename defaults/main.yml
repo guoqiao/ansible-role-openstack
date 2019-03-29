@@ -14,6 +14,12 @@ OS_NAMESERVERS: [202.78.247.197, 202.78.247.198, 202.78.247.199]
 # by default, we create only 1 server, name defaults to $USER-0
 OS_SERVER_PREFIX: "{{ENV_NAME}}"
 OS_SERVER_NAME: "{{OS_SERVER_PREFIX}}0"
+# each server will be added to these groups first
+# final groups will be OS_META_GROUPS_BASE + (item.groups or OS_META_GROUPS)
+OS_META_GROUPS_BASE:
+  - "{{ role_name }}"
+  - "{{ ENV_NAME }}"
+
 OS_SERVERS:
   - name: "{{OS_SERVER_NAME}}"
 

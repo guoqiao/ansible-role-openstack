@@ -3,6 +3,7 @@
   {% set prefix = item.prefix|default(OS_SERVER_PREFIX) %}
   {% set index = item.index|default(loop.index0|string) %}
   {% set name = item.name|default(prefix + index) %}
+  {% set groups = OS_META_GROUPS_BASE + item.groups|default(OS_META_GROUPS) %}
   {% set image = item.image|default(OS_IMAGE_NAME) %}
   {% set volume_name = item.volume_name|default('volume-' + name) %}
 
@@ -20,8 +21,7 @@
   boot_volume: "{{ volume_name }}"
   terminate_volume: "{{ item.terminate_volume|default('yes') }}"
   meta:
-    group: "{{ ENV_NAME }}"
-    groups: "{{item.groups|default(OS_META_GROUPS)|join(',')}}"
+    groups: "{{ groups|join(',')}}"
     creator: "{{lookup('env', 'USER')}}"
     image: "{{ image }}"
 
