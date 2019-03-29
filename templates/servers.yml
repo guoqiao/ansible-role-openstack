@@ -1,7 +1,5 @@
 {% for item in OS_SERVERS %}
 
-{% with %}
-
   {% set prefix = item.prefix|default(OS_SERVER_PREFIX) %}
   {% set index = item.index|default(loop.index0|string) %}
   {% set name = item.name|default(prefix + index) %}
@@ -26,7 +24,5 @@
     groups: "{{item.groups|default(OS_META_GROUPS)|join(',')}}"
     creator: "{{lookup('env', 'USER')}}"
     image: "{{ image }}"
-
-{% endwith %}
 
 {% endfor %}
