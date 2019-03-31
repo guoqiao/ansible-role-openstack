@@ -1,4 +1,6 @@
 ---
+- debug: var=OS_SERVERS
+
 - name: include tasks in servers_expand.yml
   include_tasks: servers_expand.yml
 

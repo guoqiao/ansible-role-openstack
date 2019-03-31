@@ -1,3 +1,7 @@
 ---
-- include_tasks: infra.yml
-- include_tasks: servers.yml
+- name: include tasks from infra.yml
+  include_tasks: infra.yml
+
+- name: include tasks from servers.yml
+  include_tasks: servers.yml
+  when: OS_SERVERS|length > 0
