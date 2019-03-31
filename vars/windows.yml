@@ -5,7 +5,7 @@ OS_VOLUME_SIZE: 100
 # override if you don't want ENV_NAME
 OS_SERVER_PREFIX: '{{ENV_NAME}}-win-'
 OS_USERDATA_FILE: "templates/userdata.ps1"
-OS_META_GROUPS: ['windows-common']
+OS_META_GROUPS: ['openstack']
 
 # used by userdata.ps1
 windows_username: Administrator
