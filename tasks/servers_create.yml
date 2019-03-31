@@ -45,12 +45,12 @@
   when: item.auto_floating_ip|bool
   loop: "{{ _OS_SERVERS|default([]) }}"
 
-- name: add instance to inventory
-  add_host:
-    hostname: "{{ item.openstack.name }}"
-    ansible_host: "{{ item.openstack.public_v4 }}"
-    groups: "{{ item.openstack.metadata.groups }}"
-  loop: "{{ os_server_loop_jobs.results }}"
+# - name: add instance to inventory
+  # add_host:
+    # hostname: "{{ item.openstack.name|mandatory }}"
+    # ansible_host: "{{ item.openstack.public_v4|mandatory }}"
+    # groups: "{{ item.openstack.metadata.groups }}"
+  # loop: "{{ os_server_loop_jobs.results }}"
 
-# do not refresh here, hosts added above will be gone
-# - meta: refresh_inventory
+- meta: refresh_inventory
+
