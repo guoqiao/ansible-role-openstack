@@ -30,7 +30,8 @@ OS_PUBLIC_KEY_FILE: "{{ role_path }}/files/id_rsa_catalyst_samba.pub"
 
 OS_SECURITY_GROUP: domain
 
-OS_SECURITY_GROUPS: ['domain']
+OS_SECURITY_GROUPS:
+  - "{{ OS_SECURITY_GROUP }}"
 
 OS_SECURITY_GROUP_RULES:
   - protocol: tcp  # tcp traffic in domain
