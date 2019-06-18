@@ -2,6 +2,16 @@
 
 Create infrastructure and servers in openstack cloud.
 
+## Prerequisites
+Install python packages:
+
+    pip3 install -r requirements.txt
+
+Source your openstack rc file, to check:
+
+    env | grep OS_
+    openstack server list
+
 ## Installation
 
 Add to `requirements.yml`:
@@ -14,6 +24,7 @@ Install:
     ansible-galaxy install -f -r requirements.yml
 
 This will install role into `~/.ansible/roles`.
+
 You can also link the repo to there to use source code:
 
     cd ~/.ansible/roles
@@ -33,6 +44,7 @@ A play to create infra and 1 server by default:
           include_role:
             name: openstack
 
+
 This role should run on localhost, to call openstack API, openstack rc file must be sourced first.
 Following examples will only show the task.
 Be default, it will use `$USER` as default `ENV_NAME`, create infra based on it.
@@ -45,6 +57,7 @@ Task to create infra and N servers in parallel:
         name: openstack
       vars:
         OS_SERVERS: "{{range(3)|list}}"
+
 
 NOTE: servers `$USER-[0, 1, 2]` will be created.
 
@@ -93,7 +106,7 @@ Create N Windows instances:
       vars:
         OS_SERVERS: "{{range(3)|list}}"
 
-Create 1 Ubuntu + 1 Windows instances:
+Create 1 Ubuntu + 1 Windows instance:
 
     - name: create Ubuntu
       include_role:
