@@ -1,12 +1,6 @@
 ---
 - debug: var=OS_SERVERS
 
-- name: run openstack cli to unshelve servers in env if any
-  command: "openstack server unshelve {{ item }}"
-  loop: "{{ groups[ENV_NAME] }}"
-  when: 'ENV_NAME in groups'
-  ignore_errors: yes
-
 - name: include tasks in servers_expand.yml
   include_tasks: servers_expand.yml
 
